@@ -4,14 +4,14 @@
 
 _Se debe realizar una aplicación web con contenido dinámico en las que se manipulen los registros obtenidos desde una aplicación externa._
 
-- Se deberá consumir la siguiente APi: **"https://api.restful-api.dev/objects"**
+  -Se deberá consumir la siguiente APi:  **"https://api.restful-api.dev/objects"** 
 
 #### Los EndPoints que se van a utilizar son: 
 
-- (GET) student/getAll
-  - (POST) student/ 
-    - (POST) student/{id}/update
-      - (POST) student/{id}/delete
+  -(GET) student/getAll
+     -(POST) student/ 
+        -(POST) student/{id}/update
+            -(POST) student/{id}/delete
   
 _Cada EndPoint realizará una acción distinta. Para ello se utilizaran ```tags``` y ```scripts```_
 
