@@ -19,7 +19,7 @@ Las funciones van a ser:
 
 - 1. Obtener y mostrar un listado de todos los estudiantes.
 - 2. Cargar todos los datos y agregar nuevos estudiantes.
-- 3. En la misma funcón se deberá poder modificar y eliminar datos de los estudiantes.  
+- 3. En la misma función se deberá poder modificar y eliminar datos de los estudiantes.  
 
 
 **_Alumno: Gomez Marco_**

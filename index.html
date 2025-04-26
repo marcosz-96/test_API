@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="scripts.js"></script> <!--Link al fichero JS-->
-    <title>TP_1</title>
+    <title>TP: APIs in JavaScript</title>
 </head>
 <body>
-    <h2 style="text-align:justify;">Gestión de Alumnos</h2> <!--Titulo de la aplicación-->
+    <h2 style="text-align:justify;">Student Management</h2> <!--Titulo de la aplicación-->
     <table style="border: 1px solid;">
         <thead>
             <tr>
@@ -29,8 +29,14 @@
                 <td><input id="surname"></td>
                 <td><input id="age"></td>
                 <td><input id="email"></td>
-                <td colspan="2" style="text-align: center;"><button onclick="saveObject()">ADD</button></td>
             </tr>
+            <tr>
+                <td colspan="2" style="text-align: center;"><button onclick="viewObject()">VIEW</button></td>
+                <td colspan="1" style="text-align: center;"><button onclick="saveObject()">ADD</button></td>
+                <td colspan="1" style="text-align: center;"><button onclick="modifyObject()">MODIFY</button></td>
+                <td colspan="1" style="text-align: center;"><button onclick="deleteObject()">DELETE</button></td>
+            </tr>
+            
         </tfoot>
     </table>
     <!--
