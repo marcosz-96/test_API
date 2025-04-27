@@ -1,69 +1,71 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="scripts.js"></script> <!--Link al fichero JS-->
+        
+    <script src='https://code.jquery.com/jquery-1.12.4.js'></script>
+    <script src='https://code.jquery.com/ui/1.12.1/jquery-ui.js'></script>
+    
+    <script src='scripts.js'></script> <!--Link al fichero JS-->
+
     <title>TP: APIs in JavaScript</title>
 </head>
 <body>
-    <h2 style="text-align:justify;">Student Management</h2> <!--Titulo de la aplicación-->
-    <table style="border: 1px solid;">
+    <h2 style='text-align:justify;'>Student Management</h2> <!--Titulo de la aplicación-->
+    <table style='border: 1px solid;'>
         <thead>
             <tr>
-                <th style="text-align: center;">ID</th>
-                <th style="text-align: center;">NAME</th>
-                <th style="text-align: center;">SURNAME</th>
-                <th style="text-align: center;">AGE</th>
-                <th style="text-align: center;">EMAIL</th>
+                <th style='text-align: center;'>ID</th>
+                <th style='text-align: center;'>NAME</th>
+                <th style='text-align: center;'>SURNAME</th>
+                <th style='text-align: center;'>AGE</th>
+                <th style='text-align: center;'>EMAIL</th>
                 <th colspna='2'></th>
             </tr>
         </thead>
         <tbody>
-
         </tbody>
         <tfoot>
             <tr>
                 <td></td>
-                <td><input id="name"></td>
-                <td><input id="surname"></td>
-                <td><input id="age"></td>
-                <td><input id="email"></td>
+                <td><input id='name' /></td>
+                <td><input id='surname' /></td>
+                <td><input id='age' /></td>
+                <td><input id='email' /></td>
+                <td colspan='2' style='text-align: center;'><button onclick='saveObject()'>ADD</button></td>
             </tr>
-            <tr>
-                <td colspan="2" style="text-align: center;"><button onclick="viewObject()">VIEW</button></td>
-                <td colspan="1" style="text-align: center;"><button onclick="saveObject()">ADD</button></td>
-                <td colspan="1" style="text-align: center;"><button onclick="modifyObject()">MODIFY</button></td>
-                <td colspan="1" style="text-align: center;"><button onclick="deleteObject()">DELETE</button></td>
-            </tr>
-            
         </tfoot>
     </table>
-    <!--
-    <div id="popUp" style="overflow-x: hidden;">
+    
+    <div id='popUp' style='overflow-x: hidden;'>
         <table>
             <tr>
-                <td><label for="id2" style="font-weight: bold;">ID</label></td>
-                <td><input name="id2" style="text-align: left;" readonly></td> <==con "READONLY" El usuario no puede modificar el valor==>
+                <td><label for='id2' style='font-weight: bold;'>ID</label></td>
+                <td><input name='id2' style='text-align: left;' readonly></td> <!--(con "READONLY" El usuario no puede modificar el valor)-->
             </tr>
             <tr>
-                <td><label for="name2" style="font-weight: bold;">NAME</label></td>
-                <td><input name="name2" style="text-align: left;" /></td>
+                <td><label for='name2' style='font-weight: bold;'>NAME</label></td>
+                <td><input name='name2' style='text-align: left;' /></td>
             </tr>
             <tr>
-                <td><label for="surname2" style="font-weight: bold;">SURNAME</label></td>
-                <td><input name="surname2" style="text-align: left;" /></td>
+                <td><label for='surname2' style='font-weight: bold;'>SURNAME</label></td>
+                <td><input name='surname2' style='text-align: left;' /></td>
             </tr>
             <tr>
-                <td><label for="age2" style="font-weight: bold;">AGE</label></td>
-                <td><input name="age2" style="text-align: left;" /></td>
+                <td><label for='age2' style='font-weight: bold;'>AGE</label></td>
+                <td><input name='age2' style='text-align: left;' /></td>
             </tr>
             <tr>
-                <td><label for="email2" style="font-weight: bold;">EMAIL</label></td>
-                <td><input name="email2" style="text-align: left;" /></td>
+                <td><label for='email2' style='font-weight: bold;'>EMAIL</label></td>
+                <td><input name='email2' style='text-align: left;' /></td>
+            </tr>
+            <tr>
+                <td colspan='2' style='text-align: center'><button onclick='updateObject()'>MODIFY</button></td>
             </tr>
         </table>
     </div>
-    -->
+
 </body>
 </html>
