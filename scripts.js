@@ -28,21 +28,27 @@ function loadObjects(){
 }
 
 // Función para agregar Objetos a la lista
+// Se crea una variable para almacenar los IDs
+// y se incrementen automáticamente a medida que se agregan datos
+
+let currentId = 1; // contador de IDs
 
 function addObject(){
     return new Promise(function(resolve, reject){
         const request = new XMLHttpRequest();
         request.open("POST", url);
         request.setRequestHeader("Content-Type", "application/json");
-        const data = JSON.stringify({
-            'surname': document.getElementById('surname').value, 
-            'age': document.getElementById('age').value,
-            'email': document.getElementById('email').value
-        });
-        const object = JSON.stringify({
-            'name': document.getElementById('name').value,
-            'data': data
-        });
+
+        const object = {
+            id: currentId++,
+            name: document.getElementById('name').value,
+            data: JSON.stringify({
+                surname: document.getElementById('surname').value,
+                age: document.getElementById('age').value,
+                email: document.getElementById('email').value
+            })
+        }
+        
         request.onload = function(){
             if(request.status === 200){
                 resolve(request.response);
@@ -53,7 +59,7 @@ function addObject(){
         request.onerror = function(){
             reject(Error("Error: unexpected network error."));
         };
-        request.send(object);
+        request.send(JSON.stringify(object)); // Envía el objeto con el ID
     });
 }
 
@@ -79,21 +85,13 @@ function removeObject(id){
 
 // Función para modificar Objetos de la lista, por id
 
-function modifyObject(){
+function modifyObject(modifiedObject){
     return new Promise(function(resolve, reject){
         const request = new XMLHttpRequest();
-        const id = document.getElementById('id2')[0].value;
+        const id = modifiedObject.id;
         request.open('PUT', url + `/${id}`);
         request.setRequestHeader('Content-Type', 'application/json');
-        const data = JSON.stringify({
-            'surname': document.getElementById('surname2').value, 
-            'age': document.getElementById('age2').value,
-            'email': document.getElementById('email2').value
-        });
-        const object = JSON.stringify({
-            'name': document.getElementById('name2').value,
-            'data': data
-        });
+        
         request.onload = function(){
             if(request.status === 200){
                 resolve(request.response);
@@ -104,7 +102,7 @@ function modifyObject(){
         request.onerror = function(){
             reject(Error('Error: unexpected network error.'));
         };
-        request.send(object);
+        request.send(JSON.stringify(modifiedObject)); // Envía los datos modicados
     });
 }
 
@@ -118,6 +116,11 @@ function getObjects(){
         response.forEach(object => {
             if(object.data !== null && Object.hasOwn(object.data, 'name') && Object.hasOwn(object.data, 'surname') && Object.hasOwn(object.data, 'age') && Object.hasOwn(object.data, 'email')){
                 insertTr(object, false)
+
+                const id = parseInt(object.id)
+                if(id >= currentId){
+                    currentId = id + 1;
+                }
             }  
         });
     }).catch(reason =>{
@@ -132,6 +135,7 @@ function saveObjects(){
         document.getElementById('surname').value.trim() !== '' &&
         document.getElementById('age').value.trim() !== '' && 
         document.getElementById('email').value.trim() !== ''){
+
         addObject().then((response) =>{
             const object = JSON.parse(response);
             const data = JSON.parse(object.data);
@@ -150,10 +154,11 @@ function saveObjects(){
 // Función para eliminar un Objeto
 
 function deleteObject(object){
-    removeObject(object.id).then(()=>{
+    const id = object.id; // Obtiene el id del objeto
+    removeObject(id).then(()=>{
         const rows = document.querySelectorAll('tr');
         rows.forEach(row => {
-            if(row.getAttribute('id') === object.id){
+            if(row.getAttribute('id') === id){
                 row.remove();
                 clearInputs();
             }
@@ -170,29 +175,31 @@ function updateObject(){
     document.getElementById('surname2').value.trim() !== '' &&
     document.getElementById('age2').value.trim() !== '' &&
     document.getElementById('email2').value.trim() !== ''){
-        
-        modifyObject().then(()=>{
+    
+    const id = document.getElementsByName('id2')[0].value;
+    const modifiedObject = {
+        id: id, // Modifica el objeto pero mantiene el ID existente
+        name: document.getElementsByName('name2')[0].value,
+        data: JSON.stringify({
+            surname: document.getElementsByName('surname2')[0].value,
+            age: document.getElementsByName('age2')[0].value,
+            email: document.getElementsByName('email2')[0].value
+        })
+    };
+    
+        modifyObject(modifiedObject).then(()=>{
             const rows = document.querySelectorAll('tr');
             rows.forEach(row => {
-                if(row.getAttribute('id') === document.getElementById('id2').value){
-                    const data = JSON.stringify({
-                        'surname': document.getElementById('surname2').value,
-                        'age': document.getElementById('age2').value,
-                        'email': document.getElementById('email2').value
-                    });
-                    const objectData = JSON.stringify({
-                        'id': document.getElementById('id2').value,
-                        'name': document.getElementById('name2').value,
-                        'data': data
-                    });
-                    row.children[1].innerHTML = document.getElementById('name2').value,
-                    row.children[2].innerHTML = document.getElementById('surname2').value,
-                    row.children[3].innerHTML = document.getElementById('age2').value,
-                    row.children[4].innerHTML = document.getElementById('email2').value
+                if(row.getAttribute('id') === id){
                     
-                    row.children[5].innerHTML = `<button onclick='viewObject(${objectData})'>VIEW</button>`;
-                    row.children[6].innerHTML = `<button onclick='updateObject(${objectData})'>MODIFY</button>`;
-                    row.children[7].innerHTML = `<button onclick='deleteObject(${objectData})'>DELETE</button>`;
+                    row.children[1].innerHTML = modifiedObject.name;
+                    const data = JSON.parse(modifiedObject.data);
+                    row.children[2].innerHTML = data.surname;
+                    row.children[3].innerHTML = data.age;
+                    row.children[4].innerHTML = data.email;
+                    
+                    row.children[5].innerHTML = `<button onclick='updateObject(${modifiedObject})'>MODIFY</button>`;
+                    row.children[6].innerHTML = `<button onclick='deleteObject(${modifiedObject})'>DELETE</button>`;
                 }
             });
             $('#popUp').dialog('close');
@@ -212,22 +219,12 @@ function insertTr(object, canChange){
 
     row.insertCell().innerHTML = object.id;
     row.insertCell().innerHTML = object.name;
-    row.insertCell().innerHTML = object.data.surname;
-    row.insertCell().innerHTML = object.data.age;
-    row.insertCell().innerHTML = object.data.email;
-
-    const data = JSON.stringify({
-        'surname': object.data.surname,
-        'age': object.data.age,
-        'email': object.data.email
-    });
-    const objectData = JSON.stringify({
-        'id': object.id,
-        'name': object.name,
-        'data': data
-    });
+    const data = JSON.parse(object.data);
+    row.insertCell().innerHTML = data.surname;
+    row.insertCell().innerHTML = data.age;
+    row.insertCell().innerHTML = data.email;
+    
     if (canChange) {
-        row.insertCell().innerHTML = `<button onclick='viewObject(${objectData})'>VIEW</button>`;
         row.insertCell().innerHTML = `<button onclick='modifyObject(${objectData})'>MODIFY</button>`;
         row.insertCell().innerHTML = `<button onclick='deleteObject(${objectData})'>DELETE</button>`;
     }
