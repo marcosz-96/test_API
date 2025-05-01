@@ -1,60 +1,70 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>TP: APIs in JavaScript</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <h2 style='text-align:justify;'>Student Management</h2> <!--Titulo de la aplicación-->
-    <table style='border: 1px solid;'>
+    <h2 style='text-align:justify;'>Student Management</h2> <!-- Título de la aplicación -->
+    <table>
         <thead>
             <tr>
-                <th style='text-align: center;'>ID</th>
-                <th style='text-align: center;'>NAME</th>
-                <th style='text-align: center;'>SURNAME</th>
-                <th style='text-align: center;'>AGE</th>
-                <th style='text-align: center;'>EMAIL</th>
-                <th colspan='2'></th>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>SURNAME</th>
+                <th>AGE</th>
+                <th>EMAIL</th>
+                <th colspan='3'>ACTIONS</th>
             </tr>
         </thead>
         <tbody>
+            <!-- Los datos se llenarán dinámicamente aquí -->
         </tbody>
         <tfoot>
             <tr>
-                <td></td>
-                <td><input id='name' /></td>
-                <td><input id='surname' /></td>
-                <td><input id='age' /></td>
-                <td><input id='email' /></td>
-                <td colspan='2' style='text-align: center;'><button onclick='saveObjects()'>ADD</button></td>
+                <td><input id='id' type="text" placeholder='Enter ID' /></td>
+                <td><input id='name' type="text" placeholder='Enter Name' /></td>
+                <td><input id='surname' type="text" placeholder='Enter Surname' /></td>
+                <td><input id='age' type="text" placeholder='Enter Age' /></td>
+                <td><input id='email' type="text" placeholder='Enter Email' /></td>
+                <td colspan='2'><button onclick='saveObjects()'>ADD</button></td>
             </tr>
         </tfoot>
     </table>
     
-    <div id='popUp' style='overflow-x: hidden;'>
+    <div id='popUp' style='display: none;'>
         <table>
             <tr>
                 <td><label for='id2' style='font-weight: bold;'>ID</label></td>
-                <td><input id='id2' style='text-align: left;' readonly></td> <!--(con "READONLY" El usuario no puede modificar el valor)-->
+                <td><input name='id2' style='text-align: left;' readonly></td> <!-- (con "READONLY" El usuario no puede modificar el valor) -->
             </tr>
             <tr>
                 <td><label for='name2' style='font-weight: bold;'>NAME</label></td>
-                <td><input id='name2' style='text-align: left;' /></td>
+                <td><input name='name2' style='text-align: left;' /></td>
             </tr>
             <tr>
                 <td><label for='surname2' style='font-weight: bold;'>SURNAME</label></td>
-                <td><input id='surname2' style='text-align: left;' /></td>
+                <td><input name='surname2' style='text-align: left;' /></td>
             </tr>
             <tr>
                 <td><label for='age2' style='font-weight: bold;'>AGE</label></td>
-                <td><input id='age2' style='text-align: left;' /></td>
+                <td><input name='age2' style='text-align: left;' /></td>
             </tr>
             <tr>
                 <td><label for='email2' style='font-weight: bold;'>EMAIL</label></td>
-                <td><input id='email2' style='text-align: left;' /></td>
+                <td><input name='email2' style='text-align: left;' /></td>
             </tr>
             <tr>
                 <td colspan='2' style='text-align: center'><button onclick='updateObject()'>MODIFY</button></td>
@@ -62,9 +72,8 @@
         </table>
     </div>
         
-    <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
-    <script src='https://code.jquery.com/ui/3.6.0/jquery-ui.js'></script>
-    
-    <script src='scripts.js'></script> <!--Link al fichero JS-->
+    <script src='https://code.jquery.com/jquery-3.5.1.min.js'></script>
+    <script src='https://code.jquery.com/ui/1.12.1/jquery-ui.js'></script>
+    <script src='scripts.js'></script> <!-- Link al fichero JS -->
 </body>
 </html>
